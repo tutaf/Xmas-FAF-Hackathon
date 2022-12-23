@@ -19,7 +19,6 @@ class AuthController extends Controller
      * @param  [string] email
      * @param  [string] password
      * @param  [string] password_confirmation
-     * @return [string] message
      */
     public function register(Request $request)
     {
