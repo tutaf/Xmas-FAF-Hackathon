@@ -11,9 +11,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function sendResponse($status, $message, $data, $token = '')
+    public function sendResponse($code, $status, $message, $data, $token = '')
     {
         return response()->json([
+            'code' => $code,
             'status' => $status,
             'data' => $data,
             'message' => $message,
@@ -21,7 +22,7 @@ class Controller extends BaseController
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ], $status);
+        ], $code);
     }
 
     public function sendError($status, $message, $data, $token = '') {
