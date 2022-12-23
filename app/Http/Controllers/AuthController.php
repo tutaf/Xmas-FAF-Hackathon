@@ -138,7 +138,7 @@ class AuthController extends Controller
         if (!$user) {
             return $this->sendResponse(200,'error', 'User not found', []);
         }
-        return $this->sendResponse(201, 'User info', [
+        return $this->sendResponse(201, 'success', 'User info', [
             'user' => $user,
         ], $request->access_token);
     }
