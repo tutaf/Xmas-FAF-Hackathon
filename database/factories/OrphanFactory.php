@@ -23,12 +23,12 @@ class OrphanFactory extends Factory
     public function definition()
     {
         return [
-            'orphanage_id' => $this->faker->word,
+            'orphan_building_id' => $this->faker->randomDigit(),
             'firstName' => $this->faker->word,
             'lastName' => $this->faker->word,
-            'birthsday' => $this->faker->word,
+            'birthday' => $this->faker->word,
             'image' => $this->faker->word,
-            'text' => $this->faker->word,
+            'text' => $this->faker->text,
         ];
     }
 }

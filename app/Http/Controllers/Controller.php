@@ -24,19 +24,4 @@ class Controller extends BaseController
             ]
         ], $code);
     }
-
-    public function sendError($status, $message, $data, $token = '') {
-
-        return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'data' => $data,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-
-        ], $status);
-
-    }
 }

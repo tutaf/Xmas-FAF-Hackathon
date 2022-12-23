@@ -10,17 +10,9 @@ use Illuminate\Support\Str;
 
 class OrphanController extends Controller
 {
-    public function getAll(Request $request)
+    public function getAll($id, Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'access_token' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendResponse(401, 'error', $validator->errors()->first(), []);
-        }
-
-        $data = Orphan::all();
+        $data = Orphan::where('orphan_building_id', $id)->get();
         if (!$data) {
             return $this->sendResponse(404,'error', 'Orphans not found',[]);
         }
@@ -30,19 +22,13 @@ class OrphanController extends Controller
 
     }
 
-    public function getOrphanById(Request $request)
+    public function getOrphanById($id, Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id' => 'required',
-            'access_token' => 'required|string',
-        ]);
 
-        if ($validator->fails()) {
-            return $this->sendResponse(401, 'error', $validator->errors()->first(), []);
+        $data = Orphan::find($id);
+        if (!$data) {
+            return $this->sendResponse(404,'error', 'Orphan not found',[]);
         }
-
-        $data = Orphan::find($request->id);
-
 
         return $this->sendResponse(200, 'success', 'Success', [
             'orphan' => $data

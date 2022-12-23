@@ -23,7 +23,7 @@ class OrphanBuildingFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->word,
+            'user_id' => $this->faker->randomDigit(),
             'name' => $this->faker->name,
             'image' => $this->faker->word,
             'text' => $this->faker->word,

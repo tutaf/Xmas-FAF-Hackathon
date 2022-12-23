@@ -16,10 +16,10 @@ class Orphan extends Model
      * @var array
      */
     protected $fillable = [
-        'orphanage_id',
+        'orphan_building_id',
         'firstName',
         'lastName',
-        'birthsday',
+        'birthday',
         'image',
         'text',
     ];
