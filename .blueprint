@@ -1,0 +1,9 @@
+created:
+    - database/factories/OrphanBuildingFactory.php
+    - database/migrations/2022_12_23_194607_create_orphan_buildings_table.php
+    - app/Models/OrphanBuilding.php
+    - database/seeders/OrphanBuildingSeeder.php
+models:
+    Orphan: { id: autoIncrement, orphanage_id: int, firstName: 'string nullable', lastName: 'string nullable', birthsday: int, image: 'string nullable', text: 'string nullable', timestamps: timestamps, softdeletes: softDeletes }
+    Appointment: { id: autoIncrement, orhpan_id: id, user_id: id, status: 'enum:1,0,2', date: time, requirements: 'string nullable', location: 'string nullable', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Orphan, User' } }
+    OrphanBuilding: { id: autoIncrement, user_id: int, name: 'string nullable', image: 'string nullable', text: 'string nullable', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: User, hasMany: Orphan } }

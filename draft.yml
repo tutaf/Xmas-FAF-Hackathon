@@ -1,72 +1,16 @@
 models:
-  User:
-    id: autoIncrement
-    name: string
-    login: string unique
-    password: string
-    dateBirth: string
-    phone: string
-    idPolis: integer unsigned nullable
-    inn: integer unsigned nullable
-    snils: integer unsigned nullable
-    workplace: string
-    remember_token: string
-    timestamps: true
-    relationships:
-      hasMany: Notification, Records, Service, Analysis, Payments
 
-  Notification:
+  OrphanBuilding:
     id: autoIncrement
+    user_id: int
     name: string nullable
-    status: enum:1,0
-    timestamps: true
-    softDeletes: true
-
-
-  Record:
-    id: autoIncrement
-    name: string
-    phone: string nullable
-    doctor: string
-    status: enum:1,0,2
-    date: time
-    requirements: string nullable
-    location: string nullable
+    image: string nullable
+    text: string nullable
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: Doctors
+      belongsTo: User
+      hasMany: Orphan
 
-  Doctor:
-    name: string
-    phone: string nullable
-    location: string nullable
-    timestamps: true
 
-  Service:
-    name: string
-    price: double unsigned
-    date: time
-    description: text nullable
-    testimony: text nullable
-    restriction: text nullable
-    result: text nullable
-    relationships:
-      hasMany: Analysis
-
-  Payments:
-    name: string
-    date: string
-    amount: double
-    status: enum:0,1
-    timestamps: true
-
-  Analysis:
-    name: string
-    date: string
-    doctor: string
-    location: string
-    payment: string
-    result: text
-
-seeders: User, Notification, Record, Doctor, Service, Payments, Analysis
+seeders: OrphanBuilding
