@@ -44,6 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getUser($token)
+    {
+        return $this->where('access_token')->first();
+    }
+
     public function orphanBuilding()
     {
         return $this->hasOne(OrphanBuilding::class);

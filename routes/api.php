@@ -26,7 +26,8 @@ Route::middleware([\App\Http\Middleware\API::class])->group(function () {
     });
     Route::controller(\App\Http\Controllers\OrphanBuildingController::class)->group(function () {
         Route::post('get-orphan-building', 'getByLocation');
-        Route::post('get-orphan-building-by-id', 'getOrphanById');
+        Route::post('get-orphan-building-by-id/{id}', 'getOrphanById');
         Route::post('get-all-orphan-buildings', 'getAll');
+        Route::post('create-orphan-building', 'createOrphanBuilding');
     });
 });

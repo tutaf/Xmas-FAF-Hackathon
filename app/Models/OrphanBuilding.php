@@ -18,7 +18,9 @@ class OrphanBuilding extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'image',
+        'image_id',
+        'user_id',
+        'location',
         'text',
     ];
 
@@ -34,5 +36,10 @@ class OrphanBuilding extends Model
     public function orphans()
     {
         return $this->hasMany(Orphan::class);
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
     }
 }
