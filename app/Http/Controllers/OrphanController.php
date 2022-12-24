@@ -14,6 +14,11 @@ use Illuminate\Support\Str;
 class OrphanController extends Controller
 {
 
+    public function deleteOrphan($id)
+    {
+
+    }
+
     public function createOrphan(Request $request)
     {
         $validator = Validator::make($request->all(), [
