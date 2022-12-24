@@ -16,6 +16,16 @@ class OrphanController extends Controller
 
     public function deleteOrphan($id)
     {
+        if($orphan = Orphan::find($id)) {
+            $orphan->delete();
+            return $this->sendResponse(200, 'success', 'Successfully deleted', []);
+        }
+        return $this->sendResponse(401, 'error', 'ID doesn\'t exist', []);
+
+    }
+
+    public function makeAppointment()
+    {
 
     }
 

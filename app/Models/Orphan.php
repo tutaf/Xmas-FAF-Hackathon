@@ -29,6 +29,11 @@ class Orphan extends Model
         return $this->belongsTo(OrphanBuilding::class);
     }
 
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class, 'orphan_id', 'id');
+    }
+
     public function image()
     {
         return $this->hasMany(Image::class, 'id', 'image_id');
