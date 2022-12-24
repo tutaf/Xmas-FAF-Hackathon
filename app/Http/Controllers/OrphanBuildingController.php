@@ -25,7 +25,7 @@ class OrphanBuildingController extends Controller
             return $this->sendResponse(401, 'error',$validator->errors()->first(), []);
         }
 
-        $image_path = $request->file('image')->store('image', 'public');
+        $image_path = $request->file('image')->store('Orphan', 'public');
 
         $data = Image::create([
             'image' => $image_path,
