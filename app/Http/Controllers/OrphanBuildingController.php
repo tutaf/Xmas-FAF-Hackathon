@@ -35,7 +35,7 @@ class OrphanBuildingController extends Controller
             $user = User::where('access_token', $request->access_token)->first();
             if($response = OrphanBuilding::create([
                 'name' => $request->name,
-                'text' => $request->test,
+                'text' => $request->text,
                 'location' => $request->location,
                 'image_id' => $data["id"],
                 'user_id' => $user->id
@@ -64,7 +64,7 @@ class OrphanBuildingController extends Controller
             return $this->sendResponse(401, 'error','Undefined location', []);
         }
 
-        $data = OrphanBuilding::with('image')->where('location', $request->location)->get();
+        $data = OrphanBuilding::with('image')->where('location', 'like', '%'.$request->location.'%')->get();
         if (!$data) {
             return $this->sendResponse(404,'error', 'OrphanBuildings not found',[]);
         }

@@ -20,12 +20,17 @@ class Orphan extends Model
         'firstName',
         'lastName',
         'birthday',
-        'image',
+        'image_id',
         'text',
     ];
 
     public function orphanBuilding()
     {
         return $this->belongsTo(OrphanBuilding::class);
+    }
+
+    public function image()
+    {
+        return $this->hasMany(Image::class, 'id', 'image_id');
     }
 }

@@ -14,20 +14,22 @@ use Illuminate\Support\Str;
 class OrphanController extends Controller
 {
 
-    public function createOrphanBuilding(Request $request)
+    public function createOrphan(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:orphan_buildings',
-            'text' => 'required',
-            'location' => 'required|string',
+            'orphan_building_id' => 'required',
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'birthday' => 'required|string|max:255',
+            'text' => 'string',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            return $this->sendResponse(401, 'error',$validator->errors()->first(), []);
+            return $this->sendResponse(401, 'error', $validator->errors()->first(), []);
         }
 
-        $image_path = $request->file('image')->store('Orphan', 'public');
+        $image_path = $request->file('image')->store('OrphanChild', 'public');
 
         $data = Image::create([
             'image' => $image_path,
@@ -35,16 +37,17 @@ class OrphanController extends Controller
 
         if ($data) {
             $user = User::where('access_token', $request->access_token)->first();
-            if($response = OrphanBuilding::create([
-                'name' => $request->name,
-                'text' => $request->test,
-                'location' => $request->location,
+            if($response = Orphan::create([
+                'orphan_building_id' => $request->orphan_building_id,
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'birthday' => $request->birthday,
+                'text' => $request->text,
                 'image_id' => $data["id"],
-                'user_id' => $user->id
 
             ])) {
                 return $this->sendResponse(200, 'success', 'Success get', [
-                    'orphanBuilding' => $response
+                    'orphan' => $response
                 ]);
             }
 
@@ -58,7 +61,7 @@ class OrphanController extends Controller
 
     public function getAll($id, Request $request)
     {
-        $data = Orphan::where('orphan_building_id', $id)->get();
+        $data = Orphan::with('image')->where('orphan_building_id', $id)->get();
         if (!$data) {
             return $this->sendResponse(404,'error', 'Orphans not found',[]);
         }
@@ -71,7 +74,7 @@ class OrphanController extends Controller
     public function getOrphanById($id, Request $request)
     {
 
-        $data = Orphan::find($id);
+        $data = Orphan::with('image')->find($id);
         if (!$data) {
             return $this->sendResponse(404,'error', 'Orphan not found',[]);
         }
